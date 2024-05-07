@@ -10,18 +10,16 @@ function Login() {
   };
 
   return (
-    <React.Fragment>
-      <div className="Login">
-        <p>Login to access the full dashboard</p>
-        <div className="inputs">
-          <label htmlFor="email" onClick={() => handleLabelClick('email')}>Email:</label>
-          <input type="email" id="email" />
-          <label htmlFor="password" onClick={() => handleLabelClick("password")}>Password:</label>
-          <input type="password" id="password"/>
-          <button type="button">OK</button>
-        </div>
+    <div className="Login-body">
+      <p>Login to access the full dashboard</p>
+      <div>
+        <label htmlFor="email" onClick={() => handleLabelClick('email')}>Email:</label>
+        <input type="email" id="email" />
+        <label htmlFor="password" onClick={() => handleLabelClick("password")}>Password:</label>
+        <input type="password" id="password"/>
+        <button type="button">OK</button>
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 

@@ -6,6 +6,7 @@ import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
+import CourseList from '../CourseList/CourseList';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -31,5 +32,19 @@ describe('App', () => {
 
   it('contains the Footer component', () => {
     expect(wrapper.find(Footer).exists()).toBeTruthy();
+  });
+});
+
+describe('App', () => {
+  it('renders Login by default', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find(Login).exists()).toBeTruthy();
+    expect(wrapper.find(CourseList).exists()).toBeFalsy();
+  });
+
+  it('renders CourseList when isLoggedIn is true', () => {
+    const wrapper = shallow(<App isLoggedIn={true} />);
+    expect(wrapper.find(CourseList).exists()).toBeTruthy();
+    expect(wrapper.find(Login).exists()).toBeFalsy();
   });
 });
