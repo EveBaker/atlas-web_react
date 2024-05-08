@@ -27,3 +27,17 @@ describe('Notifications', () => {
     expect(wrapper.find(NotificationItem).length).toBe(2);
   });
 });
+
+describe('Notifications', () => {
+  it('menu item is displayed when displayDrawer is false', () => {
+      const wrapper = shallow(<Notifications displayDrawer={false} />);
+      expect(wrapper.find('.menuItem').exists()).toBeTruthy();
+      expect(wrapper.find('.Notifications').exists()).toBeFalsy();
+  });
+
+  it('menu item and div.Notifications are displayed when displayDrawer is true', () => {
+      const wrapper = shallow(<Notifications displayDrawer={true} />);
+      expect(wrapper.find('.menuItem').exists()).toBeTruthy();
+      expect(wrapper.find('.Notifications').exists()).toBeTruthy();
+  });
+});
