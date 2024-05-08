@@ -1,0 +1,60 @@
+:root {
+  --holberton-red: #e1484c;
+}
+
+body {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+div {
+  padding: 4px 10px;
+}
+
+.App {
+  position: relative;
+  min-height: 120vh;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  border-bottom: 3px solid var(--holberton-red);
+}
+
+.App-header h1 {
+  margin: auto auto auto 0;
+  color: var(--holberton-red);
+  font-size: 70px;
+  font-weight: bold;
+}
+
+.App-body p {
+  margin: 60px 0 0 32px;
+  font-size: 25px;
+}
+
+.App-body input {
+  font-weight: bold;
+}
+.App-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.App-footer p {
+  text-align: center;
+  border-top: 3px solid var(--holberton-red);
+  padding: 16px 0;
+  font-size: 30px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+div .inputs {
+  font-weight: bold;
+  display: inline-block;
+  font-size: 20px;
+}
