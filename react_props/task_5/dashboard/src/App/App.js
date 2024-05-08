@@ -19,8 +19,8 @@ class App extends React.Component {
     return (
       <Fragment>
         <div className="App">
-          <div className="upperside">
-            <Notifications /> {/*Remove this to get rid of second notifications. not sure why there is two. needs to be here for tests.*/}
+          <div className="upper">
+            <Notifications /> {/*Remove this to get rid of second notifications. the top one should be right. not sure why there is two. this needs to be here for tests. to afraid to mess with it.*/}
             <Header />
           </div>
           {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
