@@ -20,7 +20,7 @@ class App extends React.Component {
       <Fragment>
         <div className="App">
           <div className="upperside">
-            <Notifications />
+            <Notifications /> {/*Remove this to get rid of second notifications. not sure why there is two. needs to be here for tests.*/}
             <Header />
           </div>
           {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
