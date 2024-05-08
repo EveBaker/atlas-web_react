@@ -19,7 +19,7 @@ class App extends React.Component {
     return (
       <Fragment>
         <div className="App">
-          <div className="upper">
+          <div>
             <Notifications /> {/*Remove this to get rid of second notifications. the top one should be right. not sure why there is two. this needs to be here for tests. to afraid to mess with it.*/}
             <Header />
           </div>

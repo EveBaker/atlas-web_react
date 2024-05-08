@@ -16,10 +16,3 @@ div {
   min-height: 120vh;
 }
 
-.upper {
-  display: flex;
-  flex-direction: row-reverse;
-  width: 100%;
-  border-bottom: 3px solid var(--holberton-red);
-  justify-content: space-between;
-}
