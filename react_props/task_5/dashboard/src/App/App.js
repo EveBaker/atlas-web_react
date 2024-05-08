@@ -16,11 +16,17 @@ class App extends React.Component {
       { id: 3, name: 'React', credit: 40 },
     ];
 
+    const listNotifications = [
+      { id: 1, type: 'default', value: "New course available" },
+      { id: 2, type: 'urgent', value: "New resume available" },
+      { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } }
+    ];
+
     return (
       <Fragment>
         <div className="App">
           <div>
-            <Notifications /> {/*Remove this to get rid of second notifications. the top one should be right. not sure why there is two. this needs to be here for tests. to afraid to mess with it.*/}
+          <Notifications listNotifications={listNotifications} /> {/*Remove this to get rid of second notifications. the top one should be right. not sure why there is two. this needs to be here for tests. to afraid to mess with it.*/}
             <Header />
           </div>
           {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}

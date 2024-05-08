@@ -6,17 +6,17 @@ import CourseListRow from './CourseListRow';
 const CourseList = ({ listCourses }) => (
   <table>
     <thead>
-      <CourseListRow isHeader textFirstCell="Available courses" />
-      <CourseListRow isHeader textFirstCell="Course name" textSecondCell="Credit" />
+    <CourseListRow isHeader={true} textFirstCell="Available courses" />
+    <CourseListRow isHeader={true} textFirstCell="Course name" textSecondCell="Credit" />
     </thead>
     <tbody>
-      {listCourses.length === 0 ? (
-        <CourseListRow textFirstCell="No course available yet" />
-      ) : (
-        listCourses.map(course => (
-          <CourseListRow key={course.id} textFirstCell={course.name} textSecondCell={course.credit} />
-        ))
-      )}
+    {listCourses.length === 0 ? (
+    <tr><td colSpan="2">No course available yet</td></tr>
+  ) : (
+    listCourses.map(course => (
+      <CourseListRow key={course.id} isHeader={false} textFirstCell={course.name} textSecondCell={String(course.credit)} />
+    ))
+  )}
     </tbody>
   </table>
 );

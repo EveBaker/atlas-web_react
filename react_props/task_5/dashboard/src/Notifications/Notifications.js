@@ -17,13 +17,13 @@ const Notifications = ({ displayDrawer, listNotifications = [] }) => {
                     <button type="button" style={{ float: 'right' }} aria-label='Close' onClick={handleButtonClick}>X</button>
                     <p>Here is the list of notifications</p>
                     <ul>
-                        {listNotifications.length === 0 ? (
-                            <li>No new notifications</li>
-                        ) : (
-                            listNotifications.map(notification => (
-                                <NotificationItem key={notification.id} {...notification} />
-                            ))
-                        )}
+                    {listNotifications.length === 0 ? (
+                        <li>No new notifications for now</li>
+                    ) : (
+                    listNotifications.map(notification => (
+                        <NotificationItem key={notification.id} {...notification} />
+                    ))
+                    )}
                     </ul>
                 </div>
             )}
