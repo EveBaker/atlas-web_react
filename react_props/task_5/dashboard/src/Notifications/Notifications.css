@@ -1,0 +1,28 @@
+.Notifications {
+	border: 2px dotted var(--holberton-red);
+	padding: 6px 12px;
+	position: relative;
+	margin-top: 12px;
+}
+
+.menuItem { 
+	text-align: right;
+	font-weight: bold;
+}
+
+.Notifications p {
+  font-weight: bold;
+  font-size: large;
+}
+
+.Notifications li {
+  font-size: large;
+}
+
+[data-notification-type="default"] {
+  color: blue;
+}
+
+[data-notification-type="urgent"] {
+  color: red;
+}
