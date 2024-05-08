@@ -1,0 +1,15 @@
+.Login p {
+    margin: 60px 0 0 32px;
+    font-size: 25px;
+  }
+  
+  .Login input {
+    font-weight: bold;
+  }
+  
+  .Login .inputs {
+    font-weight: bold;
+    display: inline-block;
+    font-size: 20px;
+  }
+  
