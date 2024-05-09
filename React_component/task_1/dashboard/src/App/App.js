@@ -25,8 +25,19 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn, listCourses, listNotifications } = this.props;
-
+      const { isLoggedIn } = this.props;
+      const listCourses = [
+        { id: 1, name: 'ES6', credit: 60 },
+        { id: 2, name: 'Webpack', credit: 20 },
+        { id: 3, name: 'React', credit: 40 },
+      ];
+  
+      const listNotifications = [
+        { id: 1, type: 'default', value: "New course available" },
+        { id: 2, type: 'urgent', value: "New resume available" },
+        { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } }
+      ];
+  
     return (
       <Fragment>
         <div className="App">
