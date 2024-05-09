@@ -16,7 +16,7 @@ class App extends Component {
       <Fragment>
         <div className="App">
           <div className="upperside">
-            <Notifications />{/*Remove this to get rid of second notifications. not sure why there is two. needs to be here for tests.*/}
+            <Notifications /> {/* not sure why there is two. this needs to be here for tests. to afraid to mess with it. and to burrned out to try to fix right now*/}
             <Header />
           </div>
           {isLoggedIn === false &&<Login />}

@@ -16,7 +16,7 @@ div {
   min-height: 120vh;
 }
 
-.upper {
+.upperside {
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
