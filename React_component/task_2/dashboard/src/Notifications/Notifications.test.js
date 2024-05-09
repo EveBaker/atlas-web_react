@@ -41,3 +41,13 @@ describe('Notifications', () => {
       expect(wrapper.find('.Notifications').exists()).toBeTruthy();
   });
 });
+
+describe('markAsRead', () => {
+  it('calls console.log with the right message when markAsRead is triggered', () => {
+    const logSpy = jest.spyOn(console, 'log');
+    const wrapper = shallow(<Notifications displayDrawer={true} />);
+    wrapper.instance().markAsRead(1);
+    expect(logSpy).toHaveBeenCalledWith('Notification 1 has been marked as read');
+    logSpy.mockRestore();
+  });
+});
