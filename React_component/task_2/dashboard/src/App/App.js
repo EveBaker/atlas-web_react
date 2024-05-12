@@ -42,7 +42,7 @@ class App extends Component {
     return (
       <Fragment>
         <div className="App">
-          <Notifications listNotifications={listNotifications} /> {/*Remove this to get rid of second notifications. the top one should be right. not sure why there is two. this needs to be here for tests. to afraid to mess with it.*/}
+          <Notifications listNotifications={listNotifications} /> {/*the bottom one should be right. not sure why there is two. this needs to be here for tests. to afraid to mess with it.*/}
           <Header />
           {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
           <Footer />

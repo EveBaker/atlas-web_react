@@ -6,6 +6,8 @@ import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
 import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
+import BodySection from '../BodySection/BodySection';
 
 class App extends Component {
   componentDidMount() {
@@ -38,19 +40,29 @@ class App extends Component {
         { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } }
       ];
   
-
-    return (
-      <Fragment>
-        <div className="App">
-          <Notifications listNotifications={listNotifications} /> {/*Remove this to get rid of second notifications. the top one should be right. not sure why there is two. this needs to be here for tests. to afraid to mess with it.*/}
-          <Header />
-          {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
-          <Footer />
-        </div>
-      </Fragment>
-    );
+      return (
+        <Fragment>
+          <div className="App">
+          <Notifications listNotifications={listNotifications} /> {/*the bottom one should be right. not sure why there is two. this needs to be here for tests. to afraid to mess with it.*/}
+            <Header />
+            {isLoggedIn ? (
+              <BodySectionWithMarginBottom title="Course list">
+                <CourseList listCourses={listCourses} />
+              </BodySectionWithMarginBottom>
+            ) : (
+              <BodySectionWithMarginBottom title="Log in to continue">
+                <Login />
+              </BodySectionWithMarginBottom>
+            )}
+            <BodySection title="News from the School">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.</p>
+            </BodySection>
+            <Footer />
+          </div>
+        </Fragment>
+      );
+    }
   }
-}
 
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
