@@ -1,0 +1,39 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const rowStyle = { backgroundColor: '#f5f5f5ab' };
+const headerStyle = { backgroundColor: '#deb5b545' };
+
+const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
+  const appliedStyle = isHeader ? headerStyle : rowStyle;
+
+  if (isHeader) {
+    return (
+      <tr style={appliedStyle}>
+        {textSecondCell ? (
+          <>
+            <th>{textFirstCell}</th>
+            <th>{textSecondCell}</th>
+          </>
+        ) : (
+          <th colSpan="2">{textFirstCell}</th>
+        )}
+      </tr>
+    );
+  } else {
+    return (
+      <tr style={appliedStyle}>
+        <td>{textFirstCell}</td>
+        <td>{textSecondCell}</td>
+      </tr>
+    );
+  }
+};
+
+CourseListRow.propTypes = {
+  isHeader: PropTypes.bool,
+  textFirstCell: PropTypes.string.isRequired,
+  textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+export default CourseListRow;
