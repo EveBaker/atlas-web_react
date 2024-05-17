@@ -1,30 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
 
-const rowStyle = { backgroundColor: '#f5f5f5ab' };
-const headerStyle = { backgroundColor: '#deb5b545' };
+const styles = StyleSheet.create({
+  row: {
+    backgroundColor: "#f5f5f5ab",
+  },
+  headerRow: {
+    backgroundColor: "#deb5b545",
+  },
+  tableData: {
+    borderBottom: '2px solid lightgrey',
+  },
+});
 
 const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
-  const appliedStyle = isHeader ? headerStyle : rowStyle;
+  const appliedStyle = isHeader ? styles.headerRow : styles.row;
 
   if (isHeader) {
     return (
-      <tr style={appliedStyle}>
+      <tr className={css(appliedStyle)}>
         {textSecondCell ? (
           <>
-            <th>{textFirstCell}</th>
-            <th>{textSecondCell}</th>
+            <th className={css(styles.tableData)}>{textFirstCell}</th>
+            <th className={css(styles.tableData)}>{textSecondCell}</th>
           </>
         ) : (
-          <th colSpan="2">{textFirstCell}</th>
+          <th colSpan="2" className={css(styles.tableData)}>{textFirstCell}</th>
         )}
       </tr>
     );
   } else {
     return (
-      <tr style={appliedStyle}>
-        <td>{textFirstCell}</td>
-        <td>{textSecondCell}</td>
+      <tr className={css(appliedStyle)}>
+        <td className={css(styles.tableData)}>{textFirstCell}</td>
+        <td className={css(styles.tableData)}>{textSecondCell}</td>
       </tr>
     );
   }

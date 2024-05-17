@@ -1,12 +1,20 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
+import { StyleSheetTestUtils } from 'aphrodite';
 import NotificationItem from './NotificationItem';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
+
 describe('NotificationItem', () => {
-  // Create a mock function for markAsRead
   const mockMarkAsRead = jest.fn();
 
   it('renders without crashing', () => {
@@ -22,8 +30,20 @@ describe('NotificationItem', () => {
   it('renders with dangerouslySetInnerHTML', () => {
     const htmlContent = { __html: '<u>test</u>' };
     const wrapper = shallow(<NotificationItem id={1} type="default" html={htmlContent} markAsRead={mockMarkAsRead} />);
-    expect(wrapper.html()).toContain('<li data-notification-type="default"><u>test</u></li>');
-});
+    const li = wrapper.find('li');
+    expect(li.prop('data-notification-type')).toEqual('default');
+    expect(li.html()).toContain('<u>test</u>');
+  });
+
+  it('applies the correct class for default type', () => {
+    const wrapper = shallow(<NotificationItem id={1} type="default" value="test" markAsRead={mockMarkAsRead} />);
+    expect(wrapper.find('li').prop('className')).toContain('defaultItem');
+  });
+
+  it('applies the correct class for urgent type', () => {
+    const wrapper = shallow(<NotificationItem id={1} type="urgent" value="test" markAsRead={mockMarkAsRead} />);
+    expect(wrapper.find('li').prop('className')).toContain('urgentItem');
+  });
 });
 
 describe('NotificationItem - onClick', () => {
