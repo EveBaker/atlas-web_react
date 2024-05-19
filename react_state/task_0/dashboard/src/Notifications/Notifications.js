@@ -71,7 +71,6 @@ class Notifications extends Component {
         super(props);
         this.markAsRead = this.markAsRead.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
-        this.handleMenuClick = this.handleMenuClick.bind(this);
     }
 
     markAsRead(id) {
@@ -82,23 +81,19 @@ class Notifications extends Component {
         this.props.handleHideDrawer();
     }
 
-    handleMenuClick() {
-        this.props.handleDisplayDrawer();
-    }
-
     shouldComponentUpdate(nextProps) {
         return (
             nextProps.listNotifications.length > this.props.listNotifications.length ||
             nextProps.displayDrawer !== this.props.displayDrawer
         );
-    }    
+    }
 
     render() {
         const { displayDrawer, listNotifications = [] } = this.props;
 
         return (
             <>
-                <div className={css(styles.menuItem)} onClick={this.handleMenuClick}>Your notifications</div>
+                <div className={css(styles.menuItem)} onClick={this.props.handleDisplayDrawer}>Your notifications</div>
                 {displayDrawer && (
                     <div className={css(styles.notifications)}>
                         <button
