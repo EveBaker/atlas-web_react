@@ -35,7 +35,7 @@ describe('Notifications', () => {
     const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={notifications} />);
     expect(wrapper.find(NotificationItem).length).toBe(2);
   });
-  
+
   it('does not rerender when the list of notifications does not grow', () => {
     const notifications = [{ id: 1, type: 'default', value: "New course available" }];
     const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={notifications} />);
@@ -56,27 +56,26 @@ describe('Notifications', () => {
     
     expect(wrapper.find(NotificationItem).length).toBe(2);
   });
-});
 
- it('calls handleDisplayDrawer when menu item is clicked', () => {
-  const handleDisplayDrawer = jest.fn();
-  const wrapper = shallow(<Notifications handleDisplayDrawer={handleDisplayDrawer} />);
-  
-  // Find the menu item and simulate a click event
-  wrapper.find('div').at(0).simulate('click');
-  
-  expect(handleDisplayDrawer).toHaveBeenCalled();
-});
 
-it('calls handleHideDrawer when close button is clicked', () => {
-  const handleHideDrawer = jest.fn();
-  const wrapper = shallow(<Notifications displayDrawer={true} handleHideDrawer={handleHideDrawer} />);
-  
-  // Find the close button and simulate a click event
-  wrapper.find('button').simulate('click');
-  
-  // Verify handleHideDrawer was called
-  expect(handleHideDrawer).toHaveBeenCalled();
+  it('calls handleDisplayDrawer when menu item is clicked', () => {
+    const handleDisplayDrawer = jest.fn();
+    const wrapper = shallow(<Notifications handleDisplayDrawer={handleDisplayDrawer} />);
+    
+
+    wrapper.find('div').at(0).simulate('click');
+    
+    expect(handleDisplayDrawer).toHaveBeenCalled();
+  });
+
+  it('calls handleHideDrawer when close button is clicked', () => {
+    const handleHideDrawer = jest.fn();
+    const wrapper = shallow(<Notifications displayDrawer={true} handleHideDrawer={handleHideDrawer} />);
+    
+    wrapper.find('button').simulate('click');
+    
+    expect(handleHideDrawer).toHaveBeenCalled();
+  });
 });
 
 describe('Notifications display logic', () => {
