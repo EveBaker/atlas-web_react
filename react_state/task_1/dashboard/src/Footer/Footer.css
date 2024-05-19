@@ -1,0 +1,12 @@
+.Footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    border-top: 3px solid var(--holberton-red);
+    padding: 16px 0;
+    font-size: 30px;
+    font-weight: bold;
+    font-style: italic;
+  }
+  
