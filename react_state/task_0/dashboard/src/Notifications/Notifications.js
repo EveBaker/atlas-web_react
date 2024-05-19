@@ -87,8 +87,11 @@ class Notifications extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        return nextProps.listNotifications.length > this.props.listNotifications.length;
-    }
+        return (
+            nextProps.listNotifications.length > this.props.listNotifications.length ||
+            nextProps.displayDrawer !== this.props.displayDrawer
+        );
+    }    
 
     render() {
         const { displayDrawer, listNotifications = [] } = this.props;
