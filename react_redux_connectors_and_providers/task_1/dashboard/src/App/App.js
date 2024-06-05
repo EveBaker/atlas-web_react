@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { connect } from 'react-redux'; // Import connect from react-redux
+import { connect } from 'react-redux';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
@@ -9,6 +9,7 @@ import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
+import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 
 const styles = StyleSheet.create({
   app: {
@@ -36,11 +37,6 @@ const styles = StyleSheet.create({
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      displayDrawer: false,
-    };
-    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-    this.handleHideDrawer = this.handleHideDrawer.bind(this);
   }
 
   componentDidMount() {
@@ -59,15 +55,8 @@ class App extends Component {
     }
   };
 
-  handleDisplayDrawer() {
-    this.setState({ displayDrawer: true });
-  }
-  handleHideDrawer() {
-    this.setState({ displayDrawer: false });
-  }
-
   render() {
-    const { isLoggedIn, displayDrawer } = this.props;
+    const { isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer } = this.props; 
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
       { id: 2, name: 'Webpack', credit: 20 },
@@ -87,12 +76,12 @@ class App extends Component {
             <Notifications
               listNotifications={listNotifications}
               displayDrawer={displayDrawer}
-              handleDisplayDrawer={this.handleDisplayDrawer}
-              handleHideDrawer={this.handleHideDrawer}
+              handleDisplayDrawer={displayNotificationDrawer}
+              handleHideDrawer={hideNotificationDrawer}
             />
             <Header />
           </div>
-          {isLoggedIn ? ( // Conditionally render based on isLoggedIn
+          {isLoggedIn ? (
             <BodySectionWithMarginBottom title="Course list">
               <CourseList listCourses={listCourses} />
             </BodySectionWithMarginBottom>
@@ -116,6 +105,8 @@ App.propTypes = {
   isLoggedIn: PropTypes.bool,
   displayDrawer: PropTypes.bool,
   logOut: PropTypes.func,
+  displayNotificationDrawer: PropTypes.func.isRequired,
+  hideNotificationDrawer: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {
@@ -123,10 +114,16 @@ App.defaultProps = {
   displayDrawer: false,
   logOut: () => {},
 };
+
 const mapStateToProps = (state) => ({
   isLoggedIn: state.get('isUserLoggedIn'),
   displayDrawer: state.get('isNotificationDrawerVisible'),
 });
 
+const mapDispatchToProps = {
+  displayNotificationDrawer,
+  hideNotificationDrawer
+};
+
 export { mapStateToProps };
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

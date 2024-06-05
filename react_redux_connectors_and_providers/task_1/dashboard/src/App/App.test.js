@@ -1,6 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import Enzyme, { shallow, mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
@@ -21,9 +21,8 @@ describe('App', () => {
 
   beforeEach(() => {
     store = mockStore({
-      ui: fromJS({
-        isLoggedIn: false,
-      }),
+      isUserLoggedIn: false,
+      isNotificationDrawerVisible: false,
     });
 
     wrapper = mount(
@@ -56,9 +55,8 @@ describe('App', () => {
 
   it('renders CourseList when isLoggedIn is true', () => {
     store = mockStore({
-      ui: fromJS({
-        isLoggedIn: true,
-      }),
+      isUserLoggedIn: true,
+      isNotificationDrawerVisible: false,
     });
 
     wrapper = mount(
@@ -90,34 +88,48 @@ describe('App', () => {
     alertMock.mockRestore();
   });
 
-  it('has a default state for displayDrawer set to be false', () => {
-    const component = wrapper.find(App).instance();
-    expect(component.state.displayDrawer).toBe(false);
+  it('shows the drawer when displayNotificationDrawer is called', () => {
+    store = mockStore({
+      isUserLoggedIn: false,
+      isNotificationDrawerVisible: false,
+    });
+
+    wrapper = mount(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    wrapper.find('Notifications').props().handleDisplayDrawer();
+    expect(wrapper.find('Notifications').props().displayDrawer).toBe(true);
   });
 
-  it('changes displayDrawer state to true when handleDisplayDrawer is called', () => {
-    const component = wrapper.find(App).instance();
-    component.handleDisplayDrawer();
-    expect(component.state.displayDrawer).toBe(true);
-  });
+  it('hides the drawer when hideNotificationDrawer is called', () => {
+    store = mockStore({
+      isUserLoggedIn: false,
+      isNotificationDrawerVisible: true,
+    });
 
-  it('changes displayDrawer state to false when handleHideDrawer is called', () => {
-    const component = wrapper.find(App).instance();
-    component.handleDisplayDrawer(); // true
-    component.handleHideDrawer(); // false
-    expect(component.state.displayDrawer).toBe(false);
+    wrapper = mount(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    wrapper.find('Notifications').props().handleHideDrawer();
+    expect(wrapper.find('Notifications').props().displayDrawer).toBe(false);
   });
 });
 
 describe('mapStateToProps', () => {
   it('should return the correct state', () => {
     const state = fromJS({
-      ui: {
-        isUserLoggedIn: true,
-      },
+      isUserLoggedIn: true,
+      isNotificationDrawerVisible: true,
     });
     const expectedProps = {
       isLoggedIn: true,
+      displayDrawer: true,
     };
     expect(mapStateToProps(state)).toEqual(expectedProps);
   });
