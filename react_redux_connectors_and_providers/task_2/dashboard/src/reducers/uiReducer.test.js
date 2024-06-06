@@ -11,7 +11,7 @@ describe('uiReducer', () => {
   const initialState = {
     isNotificationDrawerVisible: false,
     isUserLoggedIn: false,
-    user: {}
+    user: null
   };
 
   it('should return the initial state when no action is passed', () => {
@@ -42,34 +42,40 @@ describe('uiReducer', () => {
     expect(uiReducer(state, { type: HIDE_NOTIFICATION_DRAWER })).toEqual(expectedState);
   });
 
-  it('should change isUserLoggedIn to true when LOGIN_SUCCESS is passed', () => {
+  it('should change isUserLoggedIn to true and set user when LOGIN_SUCCESS is passed', () => {
+    const user = { email: 'test@example.com' };
     const expectedState = {
       ...initialState,
-      isUserLoggedIn: true
+      isUserLoggedIn: true,
+      user: user
     };
-    expect(uiReducer(initialState, { type: LOGIN_SUCCESS })).toEqual(expectedState);
+    expect(uiReducer(initialState, { type: LOGIN_SUCCESS, user })).toEqual(expectedState);
   });
 
-  it('should change isUserLoggedIn to false when LOGIN_FAILURE is passed', () => {
+  it('should change isUserLoggedIn to false and clear user when LOGIN_FAILURE is passed', () => {
     const state = {
       ...initialState,
-      isUserLoggedIn: true
+      isUserLoggedIn: true,
+      user: { email: 'test@example.com' }
     };
     const expectedState = {
       ...initialState,
-      isUserLoggedIn: false
+      isUserLoggedIn: false,
+      user: null
     };
     expect(uiReducer(state, { type: LOGIN_FAILURE })).toEqual(expectedState);
   });
 
-  it('should change isUserLoggedIn to false when LOGOUT is passed', () => {
+  it('should change isUserLoggedIn to false and clear user when LOGOUT is passed', () => {
     const state = {
       ...initialState,
-      isUserLoggedIn: true
+      isUserLoggedIn: true,
+      user: { email: 'test@example.com' }
     };
     const expectedState = {
       ...initialState,
-      isUserLoggedIn: false
+      isUserLoggedIn: false,
+      user: null
     };
     expect(uiReducer(state, { type: LOGOUT })).toEqual(expectedState);
   });

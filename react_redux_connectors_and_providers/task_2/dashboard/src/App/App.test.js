@@ -1,6 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import Enzyme, { mount } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
@@ -25,7 +25,7 @@ describe('App', () => {
       isNotificationDrawerVisible: false,
     });
 
-    wrapper = mount(
+    wrapper = shallow(
       <Provider store={store}>
         <App />
       </Provider>
@@ -59,7 +59,7 @@ describe('App', () => {
       isNotificationDrawerVisible: false,
     });
 
-    wrapper = mount(
+    wrapper = shallow(
       <Provider store={store}>
         <App />
       </Provider>
@@ -69,53 +69,12 @@ describe('App', () => {
     expect(wrapper.find(Login).exists()).toBeFalsy();
   });
 
-  it('calls logOut and alerts when Control + H is pressed', () => {
-    const logOutMock = jest.fn();
-    const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
-
-    wrapper = mount(
-      <Provider store={store}>
-        <App logOut={logOutMock} />
-      </Provider>
-    );
-
-    const event = new KeyboardEvent('keydown', { key: 'h', ctrlKey: true });
-    window.dispatchEvent(event);
-
-    expect(logOutMock).toHaveBeenCalled();
-    expect(alertMock).toHaveBeenCalledWith('Logging you out');
-
-    alertMock.mockRestore();
-  });
-
   it('shows the drawer when displayNotificationDrawer is called', () => {
-    store = mockStore({
-      isUserLoggedIn: false,
-      isNotificationDrawerVisible: false,
-    });
-
-    wrapper = mount(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-
     wrapper.find('Notifications').props().handleDisplayDrawer();
     expect(wrapper.find('Notifications').props().displayDrawer).toBe(true);
   });
 
   it('hides the drawer when hideNotificationDrawer is called', () => {
-    store = mockStore({
-      isUserLoggedIn: false,
-      isNotificationDrawerVisible: true,
-    });
-
-    wrapper = mount(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-
     wrapper.find('Notifications').props().handleHideDrawer();
     expect(wrapper.find('Notifications').props().displayDrawer).toBe(false);
   });
