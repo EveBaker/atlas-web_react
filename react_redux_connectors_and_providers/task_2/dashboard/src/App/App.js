@@ -9,7 +9,7 @@ import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
-import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logOut } from '../actions/uiActionCreators';
+import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } from '../actions/uiActionCreators';
 
 const styles = StyleSheet.create({
   app: {
@@ -47,7 +47,7 @@ class App extends Component {
     if (event.ctrlKey && event.key === 'h') {
       event.preventDefault();
       alert('Logging you out');
-      this.props.logOut();
+      this.props.logout();
     }
   };
 
@@ -83,7 +83,7 @@ class App extends Component {
             </BodySectionWithMarginBottom>
           ) : (
             <BodySectionWithMarginBottom title="Log in to continue">
-              <Login login={loginRequest} />
+              <Login />
             </BodySectionWithMarginBottom>
           )}
           <BodySection title="News from the School">
@@ -100,7 +100,7 @@ class App extends Component {
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
   displayDrawer: PropTypes.bool,
-  logOut: PropTypes.func,
+  logout: PropTypes.func,
   displayNotificationDrawer: PropTypes.func.isRequired,
   hideNotificationDrawer: PropTypes.func.isRequired,
   loginRequest: PropTypes.func.isRequired,
@@ -109,19 +109,19 @@ App.propTypes = {
 App.defaultProps = {
   isLoggedIn: false,
   displayDrawer: false,
-  logOut: () => {},
+  logout: () => {},
 };
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.get('isUserLoggedIn'),
-  displayDrawer: state.get('isNotificationDrawerVisible'),
+  isLoggedIn: state.isUserLoggedIn,
+  displayDrawer: state.isNotificationDrawerVisible,
 });
 
 const mapDispatchToProps = {
   displayNotificationDrawer,
   hideNotificationDrawer,
   loginRequest,
-  logOut,
+  logout,
 };
 
 export { mapStateToProps };

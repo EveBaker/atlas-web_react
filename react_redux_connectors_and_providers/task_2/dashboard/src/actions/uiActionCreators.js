@@ -32,17 +32,16 @@ export function loginSuccess(data) {
   };
 }
 
-export function loginFalure(error) {
+export function loginFailure(error) {
   return {
     type: LOGIN_FAILURE,
     error
   };
 }
 
-
 export function loginRequest(email, password) {
-  return async dispach => {
-    dispach(login(email, password));
+  return async dispatch => {
+    dispatch(login(email, password));
 
     try {
       const response = await fetch('/login-success.json');
@@ -51,9 +50,9 @@ export function loginRequest(email, password) {
       }
 
       const data = await response.json();
-      dispach(loginSuccess(data));
+      dispatch(loginSuccess(data));
     } catch (error) {
-      dispach(loginFalure(error.message));
+      dispatch(loginFailure(error.message));
     }
   };
 }
