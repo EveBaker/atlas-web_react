@@ -1,9 +1,9 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from '@cfaester/enzyme-adapter-react-18';
+import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import App, { mapStateToProps } from './App';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
@@ -11,9 +11,7 @@ import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
 import CourseList from '../CourseList/CourseList';
 
-Enzyme.configure({ adapter: new Adapter() });
-
-const mockStore = configureStore([]);
+const mockStore = configureStore([thunk]);
 
 describe('App', () => {
   let store;
@@ -21,15 +19,19 @@ describe('App', () => {
 
   beforeEach(() => {
     store = mockStore({
-      isUserLoggedIn: false,
-      isNotificationDrawerVisible: false,
+      ui: fromJS({
+        isUserLoggedIn: false,
+        isNotificationDrawerVisible: false,
+      }),
+      courses: fromJS({}),
+      notifications: fromJS({}),
     });
 
     wrapper = shallow(
       <Provider store={store}>
         <App />
       </Provider>
-    );
+    ).dive();
   });
 
   it('contains the Notifications component', () => {
@@ -55,15 +57,19 @@ describe('App', () => {
 
   it('renders CourseList when isLoggedIn is true', () => {
     store = mockStore({
-      isUserLoggedIn: true,
-      isNotificationDrawerVisible: false,
+      ui: fromJS({
+        isUserLoggedIn: true,
+        isNotificationDrawerVisible: false,
+      }),
+      courses: fromJS({}),
+      notifications: fromJS({}),
     });
 
     wrapper = shallow(
       <Provider store={store}>
         <App />
       </Provider>
-    );
+    ).dive();
 
     expect(wrapper.find(CourseList).exists()).toBeTruthy();
     expect(wrapper.find(Login).exists()).toBeFalsy();
@@ -83,8 +89,12 @@ describe('App', () => {
 describe('mapStateToProps', () => {
   it('should return the correct state', () => {
     const state = fromJS({
-      isUserLoggedIn: true,
-      isNotificationDrawerVisible: true,
+      ui: {
+        isUserLoggedIn: true,
+        isNotificationDrawerVisible: true,
+      },
+      courses: {},
+      notifications: {},
     });
     const expectedProps = {
       isLoggedIn: true,
